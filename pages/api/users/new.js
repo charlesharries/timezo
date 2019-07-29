@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import shortid from 'shortid';
 import { usersDb } from '../../db/adapters';
 

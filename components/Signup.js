@@ -11,7 +11,7 @@ function Signup({ setUser }) {
 
     const { data } = await axios({
       method: 'post',
-      url: '/api/signup',
+      url: '/api/users/new',
       data: {
         username,
         password,
@@ -24,9 +24,8 @@ function Signup({ setUser }) {
   }
 
   return (
-    <div className="Home">
-      <h1>This is the home page</h1>
-      <h3>Login</h3>
+    <div className="Signup">
+      <h3>Sign up</h3>
       <p>Username: {username}</p>
       <p>Password: {password}</p>
       <form onSubmit={handleSubmit}>
