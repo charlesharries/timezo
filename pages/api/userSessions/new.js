@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { usersDb } from '../../db/adapters';
+import { usersDb } from '../../../db/adapters';
 
 export default async function signin(req, res) {
   const { username, password } = req.body;

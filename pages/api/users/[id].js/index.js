@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { usersDb } from '../../../db/adapters';
+import { usersDb } from '../../../../db/adapters';
 
 export default function getUser(req, res) {
   const { id } = req.query;
