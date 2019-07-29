@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import cookies from 'next-cookies';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import Signin from '../components/Signin';
 import Signup from '../components/Signup';
 import Signout from '../components/Signout';
 
@@ -37,6 +38,7 @@ function Home({ token }) {
         <>
           <p>Not logged in</p>
           <Signup setUser={setUser} />
+          <Signin setUser={setUser} />
         </>
       )}
     </div>
