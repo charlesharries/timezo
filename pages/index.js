@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import Signin from '../components/Signin';
 import Signup from '../components/Signup';
 import Signout from '../components/Signout';
+import Timer from '../components/Timer';
 
 function Home({ token }) {
   const hasCookie = token && token.length > 0;
@@ -33,6 +34,7 @@ function Home({ token }) {
         <>
           <p>Logged in as {user.username}</p>
           <Signout setUser={setUser} />
+          <Timer user={user} />
         </>
       ) : (
         <>
