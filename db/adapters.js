@@ -4,6 +4,10 @@ import FileSync from 'lowdb/adapters/FileSync';
 const usersAdapter = new FileSync('db/users.json');
 const usersDb = low(usersAdapter);
 
-usersDb.defaults({ users: [] }).write();
+const entriesAdapter = new FileSync('db/entries.json');
+const entriesDb = low(entriesAdapter);
 
-export { usersDb };
+usersDb.defaults({ users: [] }).write();
+entriesDb.defaults({ entries: [] }).write();
+
+export { usersDb, entriesDb };
