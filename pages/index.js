@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import cookies from 'next-cookies';
+import cookie from 'js-cookie';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import Signin from '../components/Signin';
@@ -14,15 +15,20 @@ function Home({ token }) {
 
   useEffect(() => {
     async function fetchData() {
-      const { id } = jwt.verify(token, 'thisisasecret');
+      try {
+        const { id } = jwt.verify(token, 'thisisasecret');
 
-      const { data } = await axios({
-        method: 'get',
-        url: `/api/users/${id}`,
-        withCredentials: true,
-      });
+        const { data } = await axios({
+          method: 'get',
+          url: `/api/users/${id}`,
+          withCredentials: true,
+        });
 
-      setUser(data.user);
+        setUser(data.user);
+      } catch (err) {
+        cookie.remove('token');
+        setUser(null);
+      }
     }
 
     if (hasCookie) fetchData();
