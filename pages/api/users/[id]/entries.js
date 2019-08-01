@@ -3,9 +3,7 @@ import { entriesDb } from '../../../../db/adapters';
 export default function userEntries(req, res) {
   const { id } = req.query;
 
-  const entries = entriesDb.get('entries').find({ userId: id });
+  const entries = entriesDb.get('entries').filter({ userId: id });
 
-  console.log(entries);
-
-  res.json({ error: false });
+  res.json({ error: false, entries });
 }

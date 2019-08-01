@@ -3,6 +3,8 @@ import cookies from 'next-cookies';
 import cookie from 'js-cookie';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import { AppProvider } from '../components/Context';
+import Entries from '../components/Entries';
 import Signin from '../components/Signin';
 import Signup from '../components/Signup';
 import Signout from '../components/Signout';
@@ -35,21 +37,24 @@ function Home({ token }) {
   }, [hasCookie, token]);
 
   return (
-    <div className="Home">
-      {user && user.username ? (
-        <>
-          <p>Logged in as {user.username}</p>
-          <Signout setUser={setUser} />
-          <Timer user={user} />
-        </>
-      ) : (
-        <>
-          <p>Not logged in</p>
-          <Signup setUser={setUser} />
-          <Signin setUser={setUser} />
-        </>
-      )}
-    </div>
+    <AppProvider>
+      <div className="Home">
+        {user && user.username ? (
+          <>
+            <p>Logged in as {user.username}</p>
+            <Signout setUser={setUser} />
+            <Timer user={user} />
+            <Entries user={user} />
+          </>
+        ) : (
+          <>
+            <p>Not logged in</p>
+            <Signup setUser={setUser} />
+            <Signin setUser={setUser} />
+          </>
+        )}
+      </div>
+    </AppProvider>
   );
 }
 

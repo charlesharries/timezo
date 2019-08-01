@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
+import { AppContext } from './Context';
 
 function Timer({ user }) {
   const [title, setTitle] = useState('');
+  const [state, setState] = useContext(AppContext);
 
   async function createEntry(e) {
     e.preventDefault();
 
+    // 1. Save the entry to the database
     const { data } = await axios({
       method: 'post',
       url: '/api/entries/new',
@@ -16,7 +19,12 @@ function Timer({ user }) {
       },
     });
 
-    console.log(data);
+    // 2. Add the entry to local context
+    const entries = [...state.entries, data.entry];
+    setState(oldState => ({ ...oldState, entries }));
+
+    // 3. Clear the form
+    setTitle('');
   }
 
   return (
