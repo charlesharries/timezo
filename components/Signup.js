@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import cookie from 'js-cookie';
+import { AppContext } from './Context';
 
-function Signup({ setUser }) {
+function Signup() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [, setState] = useContext(AppContext);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -20,7 +22,7 @@ function Signup({ setUser }) {
 
     const { user, token } = data;
     cookie.set('token', token, { expires: 365 });
-    setUser(user);
+    setState(oldState => ({ ...oldState, user }));
   }
 
   return (

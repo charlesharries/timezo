@@ -2,9 +2,11 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { AppContext } from './Context';
 
-function Timer({ user }) {
+function Timer() {
   const [title, setTitle] = useState('');
   const [state, setState] = useContext(AppContext);
+
+  const { user } = state;
 
   async function createEntry(e) {
     e.preventDefault();

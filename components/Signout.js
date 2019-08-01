@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import cookie from 'js-cookie';
+import { AppContext } from './Context';
 
-function Signout({ setUser }) {
+function Signout() {
+  const [, setState] = useContext(AppContext);
+
   function handleSignout() {
     cookie.remove('token');
-    setUser({});
+    setState(oldState => ({ ...oldState, user: {} }));
   }
 
   return (

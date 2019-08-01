@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import cookies from 'next-cookies';
 import cookie from 'js-cookie';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { AppProvider } from '../components/Context';
+import { AppProvider, AppContext } from '../components/Context';
 import Entries from '../components/Entries';
 import Signin from '../components/Signin';
 import Signup from '../components/Signup';
@@ -12,8 +12,9 @@ import Timer from '../components/Timer';
 
 function Home({ token }) {
   const hasCookie = token && token.length > 0;
+  const [state, setState] = useContext(AppContext);
 
-  const [user, setUser] = useState({});
+  const { user } = state;
 
   useEffect(() => {
     async function fetchData() {
@@ -26,35 +27,33 @@ function Home({ token }) {
           withCredentials: true,
         });
 
-        setUser(data.user);
+        setState(oldState => ({ ...oldState, user: data.user }));
       } catch (err) {
         cookie.remove('token');
-        setUser(null);
+        setState(oldState => ({ ...oldState, user: null }));
       }
     }
 
     if (hasCookie) fetchData();
-  }, [hasCookie, token]);
+  }, [hasCookie, setState, state, token]);
 
   return (
-    <AppProvider>
-      <div className="Home">
-        {user && user.username ? (
-          <>
-            <p>Logged in as {user.username}</p>
-            <Signout setUser={setUser} />
-            <Timer user={user} />
-            <Entries user={user} />
-          </>
-        ) : (
-          <>
-            <p>Not logged in</p>
-            <Signup setUser={setUser} />
-            <Signin setUser={setUser} />
-          </>
-        )}
-      </div>
-    </AppProvider>
+    <div className="Home">
+      {user && user.username ? (
+        <>
+          <p>Logged in as {user.username}</p>
+          <Signout />
+          <Timer />
+          <Entries />
+        </>
+      ) : (
+        <>
+          <p>Not logged in</p>
+          <Signup />
+          <Signin />
+        </>
+      )}
+    </div>
   );
 }
 
