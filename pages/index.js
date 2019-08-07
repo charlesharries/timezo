@@ -3,7 +3,7 @@ import cookies from 'next-cookies';
 import cookie from 'js-cookie';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { AppProvider, AppContext } from '../components/Context';
+import { AppContext } from '../components/Context';
 import Entries from '../components/Entries';
 import Signin from '../components/Signin';
 import Signup from '../components/Signup';
@@ -12,6 +12,7 @@ import Timer from '../components/Timer';
 
 function Home({ token }) {
   const hasCookie = token && token.length > 0;
+
   const [state, setState] = useContext(AppContext);
 
   const { user } = state;
@@ -35,7 +36,7 @@ function Home({ token }) {
     }
 
     if (hasCookie) fetchData();
-  }, [hasCookie, setState, state, token]);
+  }, [hasCookie, setState, token]);
 
   return (
     <div className="Home">
