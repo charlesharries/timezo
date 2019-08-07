@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import axios from 'axios';
+import { createEntry } from '../controllers/EntryController';
 import { AppContext } from './Context';
 
 function Timer() {
@@ -8,30 +8,27 @@ function Timer() {
 
   const { user } = state;
 
-  async function createEntry(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     // 1. Save the entry to the database
-    const { data } = await axios({
-      method: 'post',
-      url: '/api/entries/new',
-      data: {
-        title,
-        userId: user.id,
-      },
-    });
+    try {
+      const entry = await createEntry({ title, userId: user.id });
 
-    // 2. Add the entry to local context
-    const entries = [...state.entries, data.entry];
-    setState(oldState => ({ ...oldState, entries }));
+      // 2. Add the entry to local context
+      const entries = [...state.entries, entry];
+      setState(oldState => ({ ...oldState, entries }));
 
-    // 3. Clear the form
-    setTitle('');
+      // 3. Clear the form
+      setTitle('');
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
     <div className="Timer">
-      <form onSubmit={createEntry} className="Timer__form">
+      <form onSubmit={handleSubmit} className="Timer__form">
         <label htmlFor="EntryNotes">Entry name</label>
         <input
           type="text"
