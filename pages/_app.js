@@ -3,12 +3,12 @@ import { AppProvider } from '../components/Context';
 
 class CustomApp extends App {
   render() {
-    const { Component } = this.props;
+    const { Component, pageProps } = this.props;
 
     return (
       <Container>
         <AppProvider>
-          <Component {...this.props} />
+          <Component {...pageProps} />
         </AppProvider>
       </Container>
     );
