@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import { AppContext } from './Context';
 import { deleteEntry } from '../controllers/EntryController';

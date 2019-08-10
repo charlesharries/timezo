@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 const AppContext = React.createContext([{}, () => {}]);
 
-function AppProvider({ children }) {
+function AppProvider({ children, user }) {
   const [state, setState] = useState({
-    user: {},
+    user: user || {},
     entries: [],
   });
 
