@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "name": "timezo",
+  "builds": [{ "src": "package.json", "use": "@now/next" }]
+}
