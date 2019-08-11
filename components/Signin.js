@@ -35,23 +35,27 @@ function Signin() {
       <h3>Sign in</h3>
       {message && message.length && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="text"
-          id="password"
-          name="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
 
         <button type="submit">Submit</button>
       </form>
