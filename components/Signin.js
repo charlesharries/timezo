@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import cookie from 'js-cookie';
+import Router from 'next/router';
 import { AppContext } from '../store/app';
 
 function Signin() {
@@ -8,6 +9,12 @@ function Signin() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [, setState] = useContext(AppContext);
+
+  function clearForm() {
+    setEmail('');
+    setPassword('');
+    setMessage('');
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -27,7 +34,10 @@ function Signin() {
 
     const { user, token } = data;
     cookie.set('token', token, { expires: 365 });
-    return setState(oldState => ({ ...oldState, user }));
+    setState(oldState => ({ ...oldState, user }));
+
+    clearForm();
+    return Router.push('/');
   }
 
   return (
