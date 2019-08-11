@@ -29,7 +29,7 @@ function Entries() {
 
       setState(oldState => ({ ...oldState, entries: newEntries }));
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   }
 
