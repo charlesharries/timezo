@@ -4,50 +4,93 @@ import cookie from 'js-cookie';
 import { AppContext } from '../store/app';
 
 function Signup() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [organisation, setOrganisation] = useState('');
+
   const [, setState] = useContext(AppContext);
+
+  function clearForm() {
+    setEmail('');
+    setPassword('');
+    setOrganisation('');
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const { data } = await axios({
+    // Create the user
+    const { data: userData } = await axios({
       method: 'post',
       url: '/api/users/new',
       data: {
-        username,
+        email,
         password,
       },
     });
 
-    const { user, token } = data;
+    if (userData.error) {
+      return console.log(userData.message);
+    }
+
+    const { user, token } = userData;
+
+    // Create the organisation and add the user to it
+    await axios({
+      method: 'post',
+      url: '/api/organisations/new',
+      data: {
+        organisation,
+        userIds: [user.id],
+      },
+    });
+
+    // TODO: If there was an error creating the organisation, delete the user, so we don't end up with orphan users.
+
+    clearForm();
+
     cookie.set('token', token, { expires: 365 });
     setState(oldState => ({ ...oldState, user }));
   }
 
   return (
     <div className="Signup">
-      <h3>Sign up</h3>
-      <p>Username: {username}</p>
+      <h3>Sign up to Timezo</h3>
+      <p>Email: {email}</p>
       <p>Password: {password}</p>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="text"
-          id="password"
-          name="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="organisation">Organisation Name</label>
+          <input
+            type="text"
+            id="organisation"
+            name="organisation"
+            value={organisation}
+            onChange={e => setOrganisation(e.target.value)}
+          />
+        </div>
 
         <button type="submit">Submit</button>
       </form>

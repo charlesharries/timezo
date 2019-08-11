@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 import { usersDb } from '../../../db/adapters';
 
 export default async function signin(req, res) {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   // 1. Get the user by
   const user = usersDb
     .get('users')
-    .find({ username })
+    .find({ email })
     .value();
 
   if (!user || !Object.keys(user).length) {

@@ -18,6 +18,6 @@ export default async function me(req, res) {
 
     return res.json(user);
   } catch (err) {
-    return res.json({ error: true, message: 'Token is malformed.' });
+    return res.json({ error: true, message: err.message });
   }
 }

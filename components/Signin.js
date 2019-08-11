@@ -3,8 +3,8 @@ import axios from 'axios';
 import cookie from 'js-cookie';
 import { AppContext } from '../store/app';
 
-function Signup() {
-  const [username, setUsername] = useState('');
+function Signin() {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [, setState] = useContext(AppContext);
 
@@ -15,7 +15,7 @@ function Signup() {
       method: 'post',
       url: '/api/userSessions/new',
       data: {
-        username,
+        email,
         password,
       },
     });
@@ -28,16 +28,16 @@ function Signup() {
   return (
     <div className="Signin">
       <h3>Sign in</h3>
-      <p>Username: {username}</p>
+      <p>email: {email}</p>
       <p>Password: {password}</p>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="email">Email</label>
         <input
           type="text"
-          id="username"
-          name="username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
+          id="email"
+          name="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
         />
 
         <label htmlFor="password">Password</label>
@@ -55,4 +55,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Signin;
