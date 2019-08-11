@@ -1,0 +1,28 @@
+/* Colours */
+$black: #000;
+$darkgrey: #3a3a3a;
+$midgrey: #aaa;
+$lightgrey: #e6e6e6;
+$white: #fff;
+
+/* Font */
+
+/* Sizing */
+$grid-width: 1480px;
+$menu-width: 300px;
+
+/* Base spacing unit */
+$bsu: 20px;
+
+/* Transitions */
+$speed1: 0.15s;
+$speed2: 0.25s;
+$speed3: 0.5s;
+
+/* Media Queries */
+@custom-media --mobile (width < 768px);
+@custom-media --touch (width <= 1024px);
+@custom-media --tablet (width >= 768px);
+@custom-media --desktop (width > 1024px);
+@custom-media --widescreen (width > 1280px);
+@custom-media --ultrawide (width > 1440px);

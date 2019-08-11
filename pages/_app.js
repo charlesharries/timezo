@@ -3,6 +3,7 @@ import axios from 'axios';
 import nookies from 'next-cookies';
 import { AppProvider } from '../store/app';
 import TheHeader from '../components/TheHeader';
+import '~css/main.css';
 
 class CustomApp extends App {
   static async getInitialProps({ Component, ctx }) {
