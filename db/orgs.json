@@ -1,0 +1,20 @@
+{
+  "organisations": [
+    {
+      "id": "-y4A99npEh",
+      "name": "Charles",
+      "slug": "Charles",
+      "userIds": [
+        "Lhz6WDE0K"
+      ]
+    },
+    {
+      "id": "mddT-E4XZ",
+      "name": "Sam's Org",
+      "slug": "Sam's-Org",
+      "userIds": [
+        "9-Bqy3kZz"
+      ]
+    }
+  ]
+}
