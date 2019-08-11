@@ -6,6 +6,7 @@ import { AppContext } from '../store/app';
 function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [, setState] = useContext(AppContext);
 
   async function handleSubmit(event) {
@@ -20,16 +21,19 @@ function Signin() {
       },
     });
 
+    if (data.error) {
+      return setMessage(data.message);
+    }
+
     const { user, token } = data;
     cookie.set('token', token, { expires: 365 });
-    setState(oldState => ({ ...oldState, user }));
+    return setState(oldState => ({ ...oldState, user }));
   }
 
   return (
     <div className="Signin">
       <h3>Sign in</h3>
-      <p>email: {email}</p>
-      <p>Password: {password}</p>
+      {message && message.length && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
