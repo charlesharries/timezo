@@ -1,12 +1,20 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import cookie from 'js-cookie';
+import Router from 'next/router';
 import { AppContext } from '../store/app';
 
 function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [, setState] = useContext(AppContext);
+
+  function clearForm() {
+    setEmail('');
+    setPassword('');
+    setMessage('');
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -20,34 +28,44 @@ function Signin() {
       },
     });
 
+    if (data.error) {
+      return setMessage(data.message);
+    }
+
     const { user, token } = data;
     cookie.set('token', token, { expires: 365 });
     setState(oldState => ({ ...oldState, user }));
+
+    clearForm();
+    return Router.push('/');
   }
 
   return (
     <div className="Signin">
       <h3>Sign in</h3>
-      <p>email: {email}</p>
-      <p>Password: {password}</p>
+      {message && message.length && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="text"
-          id="password"
-          name="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
 
         <button type="submit">Submit</button>
       </form>

@@ -2,3 +2,7 @@
 @import './base/reset';
 @import './base/normalize';
 @import './base/box-sizing';
+
+/* Settings */
+@import './settings/vars';
+@import './settings/type';

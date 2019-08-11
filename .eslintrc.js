@@ -31,6 +31,7 @@ module.exports = {
               '~pages': resolve(__dirname, 'pages'),
               '~components': resolve(__dirname, 'components'),
               '~css': resolve(__dirname, 'assets', 'css'),
+              '~store': resolve(__dirname, 'store'),
             },
             extensions: ['.js', '.jsx', '.json']
           }

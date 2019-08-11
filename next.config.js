@@ -20,6 +20,7 @@ module.exports = withCSS({
       '~pages': resolve(__dirname, 'pages'),
       '~components': resolve(__dirname, 'components'),
       '~css': resolve(__dirname, 'assets', 'css'),
+      '~store': resolve(__dirname, 'store'),
     };
 
     config.plugins.push(

@@ -12,7 +12,6 @@ function SigninStatus() {
       {user && Object.keys(user).length ? (
         <div className="SigninStatus__signedIn">
           <p className="SigninStatus signedInText">Signed in as {user.email}</p>
-          <Signout />
         </div>
       ) : (
         <p className="SigninStatus__signedOut">Not signed in.</p>
