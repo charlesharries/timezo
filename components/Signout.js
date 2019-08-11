@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import cookie from 'js-cookie';
-import { AppContext } from './Context';
+import { AppContext } from '../store/app';
 
 function Signout() {
   const [, setState] = useContext(AppContext);

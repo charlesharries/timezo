@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AppContext } from '../components/Context';
+import { AppContext } from '../store/app';
 import Entries from '../components/Entries';
 import Signin from '../components/Signin';
 import Signup from '../components/Signup';

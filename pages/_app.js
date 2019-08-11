@@ -1,7 +1,7 @@
 import App, { Container } from 'next/app';
 import axios from 'axios';
 import nookies from 'next-cookies';
-import { AppProvider } from '../components/Context';
+import { AppProvider } from '../store/app';
 
 class CustomApp extends App {
   static async getInitialProps({ ctx }) {

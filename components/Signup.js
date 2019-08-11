@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import cookie from 'js-cookie';
-import { AppContext } from './Context';
+import { AppContext } from '../store/app';
 
 function Signup() {
   const [username, setUsername] = useState('');

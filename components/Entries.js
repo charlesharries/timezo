@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
-import { AppContext } from './Context';
+import { AppContext } from '../store/app';
 import { deleteEntry } from '../controllers/EntryController';
 
 function Entries() {

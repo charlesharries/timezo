@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { createEntry } from '../controllers/EntryController';
-import { AppContext } from './Context';
+import { AppContext } from '../store/app';
 
 function Timer() {
   const [title, setTitle] = useState('');
