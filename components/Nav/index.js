@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useContext } from 'react';
 import { AppContext } from '~store/app';
+import Signout from '~components/Signout';
 import './style.css';
 
 function Nav() {
@@ -17,13 +18,11 @@ function Nav() {
           </Link>
         </li>
         <li className="Nav__item">
-          {user ? (
+          {user && Object.keys(user).length ? (
+            <Signout />
+          ) : (
             <Link href="/signin">
               <a className="Nav__link link">Sign in</a>
-            </Link>
-          ) : (
-            <Link href="/">
-              <a className="Nav__link link">Sign up</a>
             </Link>
           )}
         </li>
