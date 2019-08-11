@@ -1,9 +1,8 @@
 import { useContext } from 'react';
 import { AppContext } from '../store/app';
+import TheDashboard from '../components/TheDashboard';
 import Entries from '../components/Entries';
-import Signin from '../components/Signin';
 import Signup from '../components/Signup';
-import Signout from '../components/Signout';
 import Timer from '../components/Timer';
 
 function Home() {
@@ -13,18 +12,15 @@ function Home() {
 
   return (
     <div className="Home">
-      {user && user.username ? (
+      {user && user.email ? (
         <>
-          <p>Logged in as {user.username}</p>
-          <Signout />
           <Timer />
           <Entries />
+          <TheDashboard />
         </>
       ) : (
         <>
-          <p>Not logged in</p>
           <Signup />
-          <Signin />
         </>
       )}
     </div>
