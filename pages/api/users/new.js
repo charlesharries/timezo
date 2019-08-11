@@ -1,19 +1,35 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import shortid from 'shortid';
+import { isEmail } from 'validator';
 import { usersDb } from '../../../db/adapters';
 
 export default async function signup(req, res) {
-  let { username, password } = req.body;
+  let { email, password } = req.body;
 
-  // 1. Format username and password
-  username = username.toLowerCase();
+  // 1. Format & validate email and password
+  email = email.toLowerCase();
+
+  if (!isEmail(email)) {
+    return res.json({
+      error: true,
+      message: 'Improperly formed email address.',
+    });
+  }
+
+  if (!password || password.length < 6) {
+    return res.json({
+      error: true,
+      message: 'Your password must be at least 6 characters.',
+    });
+  }
+
   password = await bcrypt.hash(password, 10);
 
   // 2. Check if the user already exists
   const userExists = usersDb
     .get('users')
-    .find({ username })
+    .find({ email })
     .value();
 
   if (userExists) {
@@ -24,7 +40,7 @@ export default async function signup(req, res) {
   try {
     const user = usersDb
       .get('users')
-      .push({ id: shortid.generate(), username, password })
+      .push({ id: shortid.generate(), email, password })
       .last()
       .write();
 
