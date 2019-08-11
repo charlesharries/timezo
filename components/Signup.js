@@ -7,6 +7,7 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [organisation, setOrganisation] = useState('');
+  const [message, setMessage] = useState('');
 
   const [, setState] = useContext(AppContext);
 
@@ -30,7 +31,7 @@ function Signup() {
     });
 
     if (userData.error) {
-      return console.log(userData.message);
+      return setMessage(userData.message);
     }
 
     const { user, token } = userData;
@@ -56,8 +57,7 @@ function Signup() {
   return (
     <div className="Signup">
       <h3>Sign up to Timezo</h3>
-      <p>Email: {email}</p>
-      <p>Password: {password}</p>
+      {message && message.length && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label htmlFor="email">Email</label>
